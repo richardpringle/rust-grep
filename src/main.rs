@@ -1,12 +1,9 @@
 use std::{
-    io::{self, BufReader},
     fs::File,
+    io::{self, BufReader},
 };
 
-fn grep<R>(target: &str, reader: R) -> io::Result<()>
-where
-    R: io::BufRead,
-{
+fn grep<R: io::BufRead>(target: &str, reader: R) -> io::Result<()> {
     reader
         .lines()
         .take_while(io::Result::is_ok)
