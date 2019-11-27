@@ -3,13 +3,13 @@ use std::{
     io::{self, BufReader},
 };
 
-
 fn grep<R: io::BufRead>(target: &str, reader: R) -> io::Result<()> {
     reader
         .lines()
-        .filter_map(|line_result| line_result.ok())
+        .collect::<Result<Vec<String>, io::Error>>()?
+        .into_iter()
         .filter(|line| line.contains(target))
-        .for_each(|line_match| println!("{}", line_match));
+        .for_each(|line| println!("{}", line));
 
     Ok(())
 }
